@@ -1,0 +1,22 @@
+import mongoose from "mongoose";
+
+export const refreshCookieOptions = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production", // false on localhost
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    path: "/",
+};
+
+
+export const accessCookieOptions = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production", // false on localhost
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    maxAge: 24 * 60 * 60 * 1000,
+    path: "/",
+};
+
+export const convertObjetID = (id) => {
+    return new mongoose.Types.ObjectId(id);
+}
