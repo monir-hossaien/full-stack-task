@@ -14,7 +14,7 @@ const PrivateRoute = ({ children }) => {
         })()
     },[loggedIn]);
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return "";
 
   if (!loggedIn) {
     return <Navigate to="/" replace />;
