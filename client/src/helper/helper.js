@@ -48,3 +48,4 @@ export const successToast = (message) => {
 export const errorToast = (message) => {
     toast.error(message);
 };
+

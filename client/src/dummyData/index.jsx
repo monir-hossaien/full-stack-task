@@ -299,3 +299,15 @@ export const posts = [
         userReaction: 'Haha'
     },
 ];
+
+
+export const friends = [
+    { id: 1, name: 'Steve Jobs', title: 'CEO of Apple', image: '/images/img1.png', online: false, time: '5 minute ago' },
+    { id: 2, name: 'Ryan Roslansky', title: 'CEO of Linkedin', image: '/images/img2.png', online: true },
+    { id: 3, name: 'Dylan Field', title: 'CEO of Figma', image: "/images/img3.png", online: true },
+    { id: 4, name: 'Steve Jobs', title: 'CEO of Apple', image: '/images/img4.png', online: false, time: '5 minute ago' },
+    { id: 5, name: 'Ryan Roslansky', title: 'CEO of Linkedin', image: '/images/img5.png', online: true },
+    { id: 6, name: 'Dylan Field', title: 'CEO of Figma', image: '/images/img6.png', online: true },
+    { id: 7, name: 'Dylan Field', title: 'CEO of Figma', image: '/images/img7.png', online: true },
+    { id: 8, name: 'Steve Jobs', title: 'CEO of Apple', image: '/images/img8.png', online: false, time: '5 minute ago' },
+];

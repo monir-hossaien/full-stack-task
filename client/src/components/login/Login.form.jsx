@@ -45,7 +45,7 @@ const LoginForm = () => {
             }
         } catch (error) {
             // Show error if request fails
-            errorToast(error?.response?.data?.message || "Something went wrong");
+            errorToast(error.message || "Something went wrong");
             setLoading(false);
             console.log(error)
         }

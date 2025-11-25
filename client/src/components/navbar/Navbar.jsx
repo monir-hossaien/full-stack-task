@@ -8,12 +8,15 @@ import {
 } from 'lucide-react';
 import {Link} from "react-router-dom";
 import {notifications} from "../../dummyData/index.jsx";
+import {authStore} from "../../store/auth.store.js";
+import {errorToast, successToast} from "../../helper/helper.js";
 
 export default function Navbar() {
     const [showNotifications, setShowNotifications] = useState(false);
     const [showProfileMenu, setShowProfileMenu] = useState(false);
     const [showNotificationSettings, setShowNotificationSettings] = useState(false);
     const [focus, setFocus] = useState(false);
+    const {logOutRequest} = authStore()
 
     const searchRef = useRef(null);
 
@@ -31,6 +34,19 @@ export default function Navbar() {
             document.removeEventListener('click', handleClickOutside);
         };
     }, []);
+
+
+    const handleLogOut = async() => {
+        try {
+            const result = await logOutRequest()
+            if(result?.status === true){
+                window.location.reload("/");
+                successToast(result?.message)
+            }
+        }catch(error) {
+            errorToast(error?.message)
+        }
+    }
 
 
     return (
@@ -300,16 +316,17 @@ export default function Navbar() {
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link
-                                                to="/logout"
-                                                className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group"
+                                            <button
+                                                onClick={handleLogOut}
+                                                type="button"
+                                                className="w-full flex items-center justify-between p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group"
                                             >
                                                 <div className="flex items-center gap-3">
                                                     <LogOut size={18} className="text-blue-500"/>
                                                     <span className="text-sm text-gray-800 dark:text-gray-100">Log Out</span>
                                                 </div>
                                                 <ChevronDown size={14} className="text-gray-400 rotate-[-90deg]"/>
-                                            </Link>
+                                            </button>
                                         </li>
                                     </ul>
                                 </div>

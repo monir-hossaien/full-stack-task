@@ -13,7 +13,7 @@ export const accessCookieOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production", // false on localhost
     sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-    maxAge: 24 * 60 * 60 * 1000,
+    maxAge: 15 * 60 * 1000,
     path: "/",
 };
 

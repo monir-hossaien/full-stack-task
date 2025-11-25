@@ -2,6 +2,7 @@ import React from 'react';
 import LeftSidebar from "./Left.sidebar.jsx";
 import DesktopStories from "../components/middleLayoutContent/Desktop.stories.jsx";
 import MiddleLayout from "./Middle.layout.jsx";
+import RightSidebar from "./Right.sidebar.jsx";
 
 const MainLayout = () => {
     return (
@@ -23,17 +24,13 @@ const MainLayout = () => {
                 </div>
             </div>
 
-            {/*/!* Right Sidebar *!/*/}
-            {/*<div className="col-span-12 lg:col-span-2 h-[calc(100vh-75px)] overflow-auto">*/}
-            {/*    <RightSidebar />*/}
-            {/*</div>*/}
-
-            {/* Left Sidebar */}
+            {/* Right Sidebar */}
             <div className="hidden lg:block lg:w-1/4 xl:w-1/4">
-                <div className="_layout_left_sidebar_wrap">
-                    <LeftSidebar />
+                <div className="_layout_right_sidebar_wrap">
+                    <RightSidebar />
                 </div>
             </div>
+
         </div>
     );
 };

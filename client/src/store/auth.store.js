@@ -1,7 +1,8 @@
 import {create} from "zustand"
 import {base_url} from "../baseURL/index.js";
 import axios from "axios";
-import Cookies from "js-cookie";
+import cookies from "js-cookie";
+
 export const authStore = create((set) =>({
 
 
@@ -37,7 +38,7 @@ export const authStore = create((set) =>({
     }),
 
     isLogin: ()=>{
-        return !!Cookies.get("accessToken");
+        return !!cookies.get("accessToken");
     },
 
     signUpRequest: async (data) => {
@@ -48,34 +49,41 @@ export const authStore = create((set) =>({
     loginRequest: async (data) => {
         try{
             const res = await axios.post(`${base_url}/login`, data, {withCredentials: true});
+            console.log(res);
+            
             if(res.data.status === true){
-                Cookies.set("accessToken", res?.data?.accessToken);
+                cookies.set("accessToken", res?.data?.accessToken);
                 return res.data;
             }
         }catch(error) {
-            throw error;
+            return error.response.data;
         }
     },
 
+    loggedIn: false,
+    checkLoggedIn: async () => {
+        try{
+            const res = await axios.get(`${base_url}/check-logged-in`, {withCredentials: true});
+            if(res.data.status === true){
+                set({loggedIn: res?.data?.isLoggedIn});
+                return true;
+            }
+        }catch(error) {
+            return error.response.data;
+        }
+    },
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    logOutRequest: async () => {
+        try {
+            const result = await axios.get(`${base_url}/logout`, {withCredentials: true});
+            if(result.data?.status === true){
+                set({loggedIn: false})
+            }
+            return result?.data
+        }catch(error) {
+            return error?.response?.data;
+        }
+    },
 
 
 }))

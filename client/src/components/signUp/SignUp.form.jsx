@@ -131,15 +131,6 @@ const SignUpForm = () => {
                         />
                     </div>
 
-                    {/* Repeat Password */}
-                    <div>
-                        <label className="block text-color4 font-medium mb-2">Repeat Password</label>
-                        <input
-
-                            className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                            placeholder=""
-                        />
-                    </div>
 
                     {/* Radio */}
                    <div>

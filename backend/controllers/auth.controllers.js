@@ -115,3 +115,12 @@ export const logout = async(req, res)=>{
         res.status(500).json({status: false, message: "Something went wrong"})
     }
 }
+
+
+export const checkLoggedIn = async(req, res) => {
+    const token = req.cookies?.accessToken;
+    if(!token){
+        return res.status(401).json({status: false, message: "Not logged in", isLoggedIn: false});
+    }
+    return res.status(200).json({status: true, message: "User is logged in", isLoggedIn: true});
+}   

@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { authStore } from "../store/auth.store.js";
 
+
 const PrivateRoute = ({ children }) => {
-    const { isLogin } = authStore();
+    const [loading, setLoading] = useState(true);
+    const { checkLoggedIn, loggedIn } = authStore();
 
-    if (!isLogin) {
-        return <Navigate to="/" replace />;
-    }
+    useEffect(()=>{
+        (async ()=>{
+            await checkLoggedIn();
+             setLoading(false);
+        })()
+    },[loggedIn]);
 
-    return children;
+    if (loading) return <div>Loading...</div>;
+
+  if (!loggedIn) {
+    return <Navigate to="/" replace />;
+  }
+
+  return children;
+
 };
 
 export default PrivateRoute;

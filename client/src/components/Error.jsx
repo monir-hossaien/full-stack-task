@@ -1,16 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ArrowLeft} from "lucide-react"
 import { useNavigate } from "react-router-dom";
+import {authStore} from "../store/auth.store.js";
 
 
 
 const Error = () => {
-    const token = localStorage.getItem("token");
+    const {loggedIn, checkLoggedIn} = authStore()
     const navigate = useNavigate();
+
+    useEffect(() => {
+        (async ()=>{
+            await checkLoggedIn()
+        })()
+    }, [loggedIn]);
 
     const handleRedirect = () =>{
 
-        if(token) {
+        if(loggedIn) {
             navigate("/feed", { replace: true });
         }else{
             navigate("/", { replace: true });
