@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*color*/
+:root {
+    --color: #2D3748;
+    --color1: #1A202C;
+    --color2: #312000;
+    --color3: #C4C4C4;
+    --color4: #4A5568;
+    --color5: #1890FF;
+    --color6: #212121;
+    --color7: #666666;
+    --color8:#0ACF83;
+    --color9:#e8f4ff;
+    --bg1: #F0F2F5;
+    --bg2: #FFFFFF;
+    --bg3: #F5F5F5;
+    --bg4:#DFDFDF;
+    --bg5:#112032;
+    --bg6:#232E42;
+    --b-shadow1: 7.5px 20px 7.5px 20px rgba(108, 126, 147, 0.15);
+    --b-shadow2: 7.43px 49.03px 7.5px 49.03px rgba(108, 126, 147, 0.1);
+    --b-shadow3: 7px 42px 7px 42px rgba(108, 126, 147, 0.15);
+    --b-shadow4: 0px 2px 0px 2px rgba(108, 126, 147, 0.15);
+    --b-shadow5: 0px 3px 0px 3px rgba(108, 126, 147, 0.15);
+    --b-shadow6: 0px 4px 0px 4px rgba(108, 126, 147, 0.15);
+    --bcolor1: #F0F2F5;
+    --bcolor2: #E8E8E8;
+    --bcolor2: #F5F5F5;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    padding: 0;
+    margin: 0 auto;
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0 auto;
+    padding: 0;
+    background: var(--bg1);
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/*------ Registration Css --------*/
+._right_logo {
+    max-width: 161px;
+    margin:0 auto;
+}
+._social_registration_wrapper {
+    padding: 100px 0px;
+    background: var(--bg1);
+    position: relative;
+    z-index: 1;
+}
+._social_registration_content {
+    background: var(--bg2);
+    padding: 48px;
+    border-radius: 6px;
+}
+._social_registration_content_para {
+    font-weight: normal;
+    line-height: 1.4;
+    color: var(--color);
+    text-align: center;
+}
+._social_registration_content_title {
+    font-size: 28px;
+    text-align: center;
+}
+._social_registration_content_btn {
+    border: 1px solid var(--bcolor1);
+    background: var(--bg2);
+    border-radius: 6px;
+    padding: 12px 60px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+._social_registration_content_btn span {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--color2);
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+}
+._social_registration_content_bottom_txt {
+    text-align: center;
+    position: relative;
+}
+._social_registration_content_bottom_txt::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 108px;
+    height: 2px;
+    border: 1px solid var(--bg4);
+    border-radius: 6px;
+    bottom: 11px;
+}
+._social_registration_content_bottom_txt::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    width: 108px;
+    height: 2px;
+    border: 1px solid var(--bg4);
+    border-radius: 6px;
+    bottom: 11px;
+}
+._social_registration_content_bottom_txt span {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--color3);
+}
+._social_registration_label {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--color4);
+}
+._social_registration_input {
+    background: var(--bg2);
+    border: 1px solid var(--bcolor2);
+    border-radius: 6px;
+    height: 48px;
+}
+._social_registration_input::-webkit-input-placeholder {
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--color);
+}
+._social_registration_input::-moz-placeholder {
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--color);
+}
+._social_registration_input:-ms-input-placeholder {
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--color);
+}
+._social_registration_input::-ms-input-placeholder {
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--color);
+}
+._social_registration_input::placeholder {
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--color);
+}
+._social_registration_form_check_input:checked {
+    background-color: transparent;
+    border-color: var(--color5);
+    position: relative;
+}
+._social_registration_form_check_input:checked::before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color5);
+}
+._social_registration_form_check_input:checked[type=radio] {
+    background-image: none;
+}
+._social_registration_form_left_para {
+    color: var(--color5);
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 2px 0 0 23px;
+}
+._social_registration_bottom_txt_para {
+    font-size: 14px;
+}
+._social_registration_bottom_txt_para a {
+    color: var(--color5);
+}
+/*------ Registration Css End --------*/
+
+
