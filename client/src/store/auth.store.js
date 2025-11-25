@@ -5,8 +5,6 @@ import axios from "axios";
 export const authStore = create((set) =>({
 
 
-
-
     loading: false,
     setLoading: (value) => {
         set({loading: value})
@@ -47,17 +45,17 @@ export const authStore = create((set) =>({
         return result.data
     },
 
-    loginRequest: async (data) => {
-        try {
-            const res = await api.post("/login", data);
-            if(res.data.status === true){
-                localStorage.setItem("isLogin", "true");
-                return res.data;
-            }
-        } catch (error) {
-            throw error;
-        }
-    },
+    // loginRequest: async (data) => {
+    //     try {
+    //         const res = await api.post("/login", data);
+    //         if(res.data.status === true){
+    //             localStorage.setItem("isLogin", "true");
+    //             return res.data;
+    //         }
+    //     } catch (error) {
+    //         throw error;
+    //     }
+    // },
 
 
 

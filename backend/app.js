@@ -16,6 +16,7 @@ const app = express();
 // cors setup
 const corsOptions = {
     origin: process.env.CLIENT_ORIGIN || "http://localhost:5173",
+    credentials: true,
 }
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes

@@ -7,9 +7,13 @@ const SignUpForm = () => {
     const {loading, formData, inputOnChange, resetFormData, signUpRequest, setLoading} = authStore();
     const navigate = useNavigate();
 
-    const handleSignUpRequest = async () => {
+    console.log(formData);
+    
+
+    const handleSignUpRequest = async (e) => {
 
         try {
+            e.preventDefault();
             // Validate form input fields
             if (ValidationHelper.IsEmpty(formData.email)) {
                 errorToast("Email is required");
@@ -20,6 +24,8 @@ const SignUpForm = () => {
             } else {
                 // Prepare data for API request
                 const data = {
+                    firstName: formData.firstName,
+                    lastName: formData.lastName,   
                     email: formData.email,
                     password: formData.password
                 };
@@ -32,7 +38,7 @@ const SignUpForm = () => {
                     // Success: show message, reset form, and redirect
                     successToast(result?.message);
                     resetFormData();
-                    navigate("/feed");
+                    navigate("/");
                 } else {
                     // Show error message if API response is unsuccessful
                     errorToast(result?.message);
@@ -81,7 +87,7 @@ const SignUpForm = () => {
                         <label className="block text-color4 font-medium mb-2">First name</label>
                         <input
                             value={formData?.firstName}
-                            onChange={(e) => inputOnChange("password", e.target.value)}
+                            onChange={(e) => inputOnChange("firstName", e.target.value)}
                             type="text"
                             className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500"
                             placeholder=""
@@ -93,7 +99,7 @@ const SignUpForm = () => {
                         <label className="block text-color4 font-medium mb-2">Last name</label>
                         <input
                             value={formData?.lastName}
-                            onChange={(e) => inputOnChange("password", e.target.value)}
+                            onChange={(e) => inputOnChange("lastName", e.target.value)}
                             type="text"
                             className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500"
                             placeholder=""
@@ -148,7 +154,7 @@ const SignUpForm = () => {
                     {/* Register Button */}
                     <div>
                         <button
-                            type="button"
+                            type="submit"
                             disabled={loading}
                             className="w-full bg-color5 text-white py-3 rounded-md mt-8 flex justify-center"
                         >
