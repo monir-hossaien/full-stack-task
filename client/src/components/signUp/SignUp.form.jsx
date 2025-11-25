@@ -6,8 +6,6 @@ import ValidationHelper, {errorToast, successToast} from "../../helper/helper.js
 const SignUpForm = () => {
     const {loading, formData, inputOnChange, resetFormData, signUpRequest, setLoading} = authStore();
     const navigate = useNavigate();
-
-    console.log(formData);
     
 
     const handleSignUpRequest = async (e) => {
@@ -42,6 +40,7 @@ const SignUpForm = () => {
                 } else {
                     // Show error message if API response is unsuccessful
                     errorToast(result?.message);
+                    resetFormData();
                 }
 
                 setLoading(false); // Stop loading
@@ -50,6 +49,7 @@ const SignUpForm = () => {
             // Show error if request fails
             errorToast(error?.response?.data?.message || "Something went wrong");
             setLoading(false);
+            resetFormData();
         }
     };
 
@@ -159,7 +159,7 @@ const SignUpForm = () => {
                             className="w-full bg-color5 text-white py-3 rounded-md mt-8 flex justify-center"
                         >
                             {loading ? (
-                                <span className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                                <span className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin text-sm"></span>
                             ) : (
                                 <span>Register</span>
                             )}

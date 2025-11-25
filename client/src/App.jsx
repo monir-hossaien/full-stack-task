@@ -4,6 +4,7 @@ import FeedPage from "./pages/feed.page.jsx";
 import ErrorPage from "./pages/error.page.jsx";
 import LoginPage from "./pages/login.page.jsx";
 import RegisterPage from "./pages/register.page.jsx";
+import PrivateRoute from "./components/Private.route.jsx";
 
 const App = () => {
     return (
@@ -14,7 +15,8 @@ const App = () => {
                 <Route path="/sign-up" element={<RegisterPage />} />
 
                 {/*protected route*/}
-                <Route path="/feed" element={<FeedPage />} />
+                <Route path="/feed" element={<PrivateRoute><FeedPage /></PrivateRoute>} />
+
 
                 {/*unknown routes*/}
                 <Route path="*" element={<ErrorPage />} />

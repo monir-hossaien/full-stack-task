@@ -1,7 +1,7 @@
 import {create} from "zustand"
 import {base_url} from "../baseURL/index.js";
 import axios from "axios";
-
+import Cookies from "js-cookie";
 export const authStore = create((set) =>({
 
 
@@ -37,7 +37,7 @@ export const authStore = create((set) =>({
     }),
 
     isLogin: ()=>{
-        return !!localStorage.getItem("isLogin");
+        return !!Cookies.get("accessToken");
     },
 
     signUpRequest: async (data) => {
@@ -45,17 +45,19 @@ export const authStore = create((set) =>({
         return result.data
     },
 
-    // loginRequest: async (data) => {
-    //     try {
-    //         const res = await api.post("/login", data);
-    //         if(res.data.status === true){
-    //             localStorage.setItem("isLogin", "true");
-    //             return res.data;
-    //         }
-    //     } catch (error) {
-    //         throw error;
-    //     }
-    // },
+    loginRequest: async (data) => {
+        try{
+            const res = await axios.post(`${base_url}/login`, data, {withCredentials: true});
+            if(res.data.status === true){
+                Cookies.set("accessToken", res?.data?.accessToken);
+                return res.data;
+            }
+        }catch(error) {
+            throw error;
+        }
+    },
+
+
 
 
 

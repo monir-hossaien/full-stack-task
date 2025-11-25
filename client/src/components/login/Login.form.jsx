@@ -1,8 +1,55 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
+import {authStore} from "../../store/auth.store.js";
+import ValidationHelper, {errorToast, successToast} from "../../helper/helper.js";
+
 
 const LoginForm = () => {
 
+     const {loading, formData, inputOnChange, resetFormData, loginRequest, setLoading} = authStore();
+    const navigate = useNavigate();
+
+    const handleLoginRequest = async (e) => {
+
+        try {
+            e.preventDefault();
+            // Validate form input fields
+            if (ValidationHelper.IsEmpty(formData.email)) {
+                errorToast("Email is required");
+            } else if (!ValidationHelper.IsEmail(formData.email)) {
+                errorToast("Invalid email");
+            } else if (ValidationHelper.IsEmpty(formData.password)) {
+                errorToast("Password is required");
+            } else {
+                // Prepare data for API request
+                const data = {
+                    email: formData.email,
+                    password: formData.password
+                };
+                setLoading(true); // Show loading spinner or disable button
+
+                // Send API request to sign up user
+                const result = await loginRequest(data);
+
+                if (result.status === true) {
+                    // Success: show message, reset form, and redirect
+                    successToast(result?.message);
+                    resetFormData();
+                    navigate("/feed");
+                } else {
+                    // Show error message if API response is unsuccessful
+                    errorToast(result?.message);
+                }
+
+                setLoading(false); // Stop loading
+            }
+        } catch (error) {
+            // Show error if request fails
+            errorToast(error?.response?.data?.message || "Something went wrong");
+            setLoading(false);
+            console.log(error)
+        }
+    };
 
     return (
         <>
@@ -30,13 +77,13 @@ const LoginForm = () => {
                 </div>
 
                 {/* Form */}
-                <form  className="space-y-5">
+                <form onSubmit={handleLoginRequest}  className="space-y-5">
                     <div>
                         <label className="block text-gray-700 mb-2">Email</label>
                         <input
                             type="email"
-                            // value={email}
-                            // onChange={(e) => setEmail(e.target.value)}
+                            value={formData?.email}
+                            onChange={(e) => inputOnChange("email", e.target.value)}
                             className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500"
                             placeholder=""
                             required
@@ -45,9 +92,9 @@ const LoginForm = () => {
                     <div>
                         <label className="block text-gray-700 mb-2">Password</label>
                         <input
-                            // type="password"
-                            // value={password}
-                            // onChange={(e) => setPassword(e.target.value)}
+                            type="password"
+                            value={formData?.password}
+                            onChange={(e) => inputOnChange("password", e.target.value)}
                             className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500"
                             placeholder=""
                             required
@@ -64,9 +111,14 @@ const LoginForm = () => {
                     <div className="py-7">
                         <button
                             type="submit"
-                            className="w-full bg-blue-500 text-white py-3 rounded-md font-medium hover:bg-blue-600 transition"
+                            disabled={loading}
+                            className="w-full bg-color5 text-white py-3 rounded-md mt-8 flex justify-center"
                         >
-                            Login now
+                            {loading ? (
+                                <span className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin text-sm"></span>
+                            ) : (
+                                <span>Login</span>
+                            )}
                         </button>
                     </div>
                 </form>
