@@ -10,8 +10,27 @@ dotenv.config();
 import authRoutes from './routes/auth.routes.js';
 import postRoutes from './routes/post.routes.js';
 import commentRoutes from './routes/comment.routes.js';
+import connectDB from "./config/database.js";
 
 const app = express();
+
+// Connect to DB on cold start
+let dbConnected = false;
+app.use(async (req, res, next) => {
+    if (!dbConnected) {
+        try {
+            await connectDB();
+            dbConnected = true;
+        } catch (error) {
+            console.error('DB connection failed:', error);
+            return res.status(503).json({
+                status: false,
+                message: 'Database unavailable'
+            });
+        }
+    }
+    next();
+});
 
 // cors setup
 const corsOptions = {
