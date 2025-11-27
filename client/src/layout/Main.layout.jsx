@@ -6,7 +6,7 @@ import RightSidebar from "./Right.sidebar.jsx";
 
 const MainLayout = () => {
     return (
-        <div className="flex justify-between gap-5">
+        <div className="flex justify-between gap-5 overflow-hidden">
 
             {/* Left Sidebar */}
             <div className="hidden lg:block  lg:w-1/4 xl:w-1/4">
@@ -16,7 +16,7 @@ const MainLayout = () => {
             </div>
 
             {/* Middle Layout */}
-            <div className="w-full lg:w-1/2">
+            <div className="w-full lg:w-1/2 overflow-hidden">
                 <div className="_layout_middle_wrap">
                     <div className="_layout_middle_inner">
                         <MiddleLayout />
