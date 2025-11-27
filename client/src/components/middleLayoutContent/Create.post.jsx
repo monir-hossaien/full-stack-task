@@ -45,7 +45,7 @@ const CreatePost = () => {
       </div>
 
       {/* Desktop Buttons */}
-        <div className="_feed_inner_text_area_bottom">
+        <div className="_feed_inner_text_area_bottom hidden lg:flex">
             <div className="_feed_inner_text_area_item">
                 <div className="_feed_inner_text_area_bottom_photo _feed_common">
                     <button type="button" className="_feed_inner_text_area_bottom_photo_link">
