@@ -1,24 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { authStore } from "../store/auth.store.js";
+import {useAuth} from "../context/auth.context.jsx";
+import ProgressBar from "./Progress.bar.jsx";
 
 
 const PrivateRoute = ({ children }) => {
-    const [loading, setLoading] = useState(true);
-    const { checkLoggedIn, loggedIn } = authStore();
+    const { loading, isLogin } = useAuth();
 
-    useEffect(()=>{
-        (async ()=>{
-            await checkLoggedIn();
-             setLoading(false);
-        })()
-    },[loggedIn]);
+    if(loading)  return <ProgressBar />;
 
-    if (loading) return "";
+    if(!isLogin){
+        return <Navigate to="/" replace />;
+    }
 
-  if (!loggedIn) {
-    return <Navigate to="/" replace />;
-  }
 
   return children;
 

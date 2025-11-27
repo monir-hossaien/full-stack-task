@@ -6,7 +6,7 @@ dotenv.config();
 // Generate short-lived access token
 export const generateAccessToken = (user) => {
   return jwt.sign(
-    { id: user._id, email: user.email },
+    { id: user._id, email: user.email, firstName: user.firstName, lastName: user.lastName },
     process.env.ACCESS_TOKEN_SECRET,
     { expiresIn: "15m" } // 15 minutes
   );
@@ -15,7 +15,7 @@ export const generateAccessToken = (user) => {
 // Generate long-lived refresh token
 export const generateRefreshToken = (user) => {
   return jwt.sign(
-    { id: user._id, email: user.email },
+    { id: user._id, email: user.email, firstName: user.firstName, lastName: user.lastName },
     process.env.REFRESH_TOKEN_SECRET,
     { expiresIn: "7d" } // 7 days
   );

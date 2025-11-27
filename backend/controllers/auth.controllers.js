@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import {signUpService} from "../services/auth.services.js";
 import User from "../models/user.model.js";
-import {generateAccessToken, generateRefreshToken, verifyRefreshToken} from "../utils/jwt.js";
+import {generateAccessToken, generateRefreshToken, verifyRefreshToken, verifyAccessToken} from "../utils/jwt.js";
 import {accessCookieOptions, refreshCookieOptions} from "../utils/index.js";
 import RefreshToken from "../models/RefreshToken.model.js";
 
@@ -24,6 +24,7 @@ export const login = async (req, res) => {
         }
         // find user is exits or not
         let isUserExits = await User.findOne({email});
+        
 
         if (!isUserExits) {
             return res.status(404).json({status: false, message: "No account found with that email. Please check for typos and try again."});
@@ -119,8 +120,17 @@ export const logout = async(req, res)=>{
 
 export const checkLoggedIn = async(req, res) => {
     const token = req.cookies?.accessToken;
+
+    
     if(!token){
         return res.status(401).json({status: false, message: "Not logged in", isLoggedIn: false});
     }
-    return res.status(200).json({status: true, message: "User is logged in", isLoggedIn: true});
+
+    const user = await verifyAccessToken(token)
+    console.log(user);
+    if(!user){
+        return res.status(401).json({status: false, message: "Not logged in", isLoggedIn: false});
+    }
+
+    return res.status(200).json({status: true, message: "User is logged in", isLoggedIn: true, data: user});
 }   

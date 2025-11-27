@@ -8,15 +8,19 @@ import {
 } from 'lucide-react';
 import {Link} from "react-router-dom";
 import {notifications} from "../../dummyData/index.jsx";
-import {authStore} from "../../store/auth.store.js";
 import {errorToast, successToast} from "../../helper/helper.js";
+import {useAuth} from "../../context/auth.context.jsx";
 
 export default function Navbar() {
     const [showNotifications, setShowNotifications] = useState(false);
     const [showProfileMenu, setShowProfileMenu] = useState(false);
     const [showNotificationSettings, setShowNotificationSettings] = useState(false);
     const [focus, setFocus] = useState(false);
-    const {logOutRequest} = authStore()
+    const {user, logout} = useAuth();
+
+
+    const fullName = user?.firstName+ " " +user?.lastName;
+
 
     const searchRef = useRef(null);
 
@@ -38,9 +42,9 @@ export default function Navbar() {
 
     const handleLogOut = async() => {
         try {
-            const result = await logOutRequest()
+            const result = await logout()
             if(result?.status === true){
-                window.location.reload("/");
+                window.location.href= "/";
                 successToast(result?.message)
             }
         }catch(error) {
@@ -268,9 +272,9 @@ export default function Navbar() {
                                 onClick={() => setShowProfileMenu(!showProfileMenu)}
                                 className="flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                             >
-                                <img src="/images/Avatar.png" alt="Profile"
+                                <img src={user?.image || "/images/Avatar.png"} alt="Profile"
                                      className="w-8 h-8 rounded-full object-cover"/>
-                                <span className="text-gray-800 dark:text-gray-100 font-medium hidden lg:block">Dylan Field</span>
+                                <span className="text-gray-800 dark:text-gray-100 font-medium hidden lg:block">{fullName}</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" fill="none" viewBox="0 0 10 6">
                                     <path fill="#112032" d="M5 5l.354.354L5 5.707l-.354-.353L5 5zm4.354-3.646l-4 4-.708-.708 4-4 .708.708zm-4.708 4l-4-4 .708-.708 4 4-.708.708z" />
                                 </svg>
@@ -282,10 +286,10 @@ export default function Navbar() {
                                     className="absolute right-0 top-full mt-2 bg-white dark:bg-gray-900 shadow-xl rounded-lg p-4 w-64">
                                     <div
                                         className="flex items-center gap-3 mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
-                                        <img src="/images/Avatar.png" alt="Profile"
+                                        <img src={user?.image || "/images/Avatar.png"} alt="Profile"
                                              className="w-12 h-12 rounded-full object-cover"/>
                                         <div>
-                                            <h4 className="text-base font-semibold text-gray-800 dark:text-gray-100">Dylan Field</h4>
+                                            <h4 className="text-base font-semibold text-gray-800 dark:text-gray-100">{fullName}</h4>
                                             <Link to="/profile" className="text-sm text-blue-500 hover:underline">View Profile</Link>
                                         </div>
                                     </div>

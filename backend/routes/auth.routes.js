@@ -10,7 +10,7 @@ router.post('/register', authController.signUp);
 router.post('/login', authController.login);
 router.post("/refresh-token", authenticateUser, authController.refreshToken);
 router.get("/logout", authenticateUser, authController.logout);
-router.get("/check-logged-in", authenticateUser, authController.checkLoggedIn);
+router.get("/auth/me", authenticateUser, authController.checkLoggedIn);
 
 
 

@@ -1,7 +1,6 @@
 import {create} from "zustand"
 import {base_url} from "../baseURL/index.js";
 import axios from "axios";
-import cookies from "js-cookie";
 
 export const authStore = create((set) =>({
 
@@ -37,10 +36,6 @@ export const authStore = create((set) =>({
         },
     }),
 
-    isLogin: ()=>{
-        return !!cookies.get("accessToken");
-    },
-
     signUpRequest: async (data) => {
         let result = await axios.post(`${base_url}/register`, data)
         return result.data
@@ -49,25 +44,16 @@ export const authStore = create((set) =>({
     loginRequest: async (data) => {
         try{
             const res = await axios.post(`${base_url}/login`, data, {withCredentials: true});
-            console.log(res);
-            
-            if(res.data.status === true){
-                cookies.set("accessToken", res?.data?.accessToken);
-                return res.data;
-            }
+            return res?.data
         }catch(error) {
             return error.response.data;
         }
     },
 
-    loggedIn: false,
     checkLoggedIn: async () => {
         try{
-            const res = await axios.get(`${base_url}/check-logged-in`, {withCredentials: true});
-            if(res.data.status === true){
-                set({loggedIn: res?.data?.isLoggedIn});
-                return true;
-            }
+            const res = await axios.get(`${base_url}/auth/me`, {withCredentials: true});
+            return res?.data;
         }catch(error) {
             return error.response.data;
         }
@@ -76,9 +62,6 @@ export const authStore = create((set) =>({
     logOutRequest: async () => {
         try {
             const result = await axios.get(`${base_url}/logout`, {withCredentials: true});
-            if(result.data?.status === true){
-                set({loggedIn: false})
-            }
             return result?.data
         }catch(error) {
             return error?.response?.data;

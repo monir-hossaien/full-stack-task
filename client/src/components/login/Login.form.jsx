@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {authStore} from "../../store/auth.store.js";
 import ValidationHelper, {errorToast, successToast} from "../../helper/helper.js";
 
@@ -7,7 +7,6 @@ import ValidationHelper, {errorToast, successToast} from "../../helper/helper.js
 const LoginForm = () => {
 
      const {loading, formData, inputOnChange, resetFormData, loginRequest, setLoading} = authStore();
-    const navigate = useNavigate();
 
     const handleLoginRequest = async (e) => {
 
@@ -21,32 +20,25 @@ const LoginForm = () => {
             } else if (ValidationHelper.IsEmpty(formData.password)) {
                 errorToast("Password is required");
             } else {
-                // Prepare data for API request
                 const data = {
-                    email: formData.email,
-                    password: formData.password
+                    email: formData?.email,
+                    password: formData?.password
                 };
-                setLoading(true); // Show loading spinner or disable button
-
-                // Send API request to sign up user
+                setLoading(true);
                 const result = await loginRequest(data);
-
-                if (result.status === true) {
-                    // Success: show message, reset form, and redirect
+                if (result?.status === true) {
+                    setLoading(false);
                     successToast(result?.message);
                     resetFormData();
-                    navigate("/feed");
+                    window.location.href="/feed";
                 } else {
-                    // Show error message if API response is unsuccessful
+
                     errorToast(result?.message);
                 }
-
-                setLoading(false); // Stop loading
             }
         } catch (error) {
-            // Show error if request fails
+           setLoading(false);
             errorToast(error.message || "Something went wrong");
-            setLoading(false);
             console.log(error)
         }
     };
