@@ -12,7 +12,6 @@ const LoginForm = () => {
 
         try {
             e.preventDefault();
-            // Validate form input fields
             if (ValidationHelper.IsEmpty(formData.email)) {
                 errorToast("Email is required");
             } else if (!ValidationHelper.IsEmail(formData.email)) {
@@ -32,7 +31,7 @@ const LoginForm = () => {
                     resetFormData();
                     window.location.href="/feed";
                 } else {
-
+                    setLoading(false);
                     errorToast(result?.message);
                 }
             }
